@@ -1,0 +1,85 @@
+CornHarvestGame
+
+Main game controller class
+Manages the overall game state, UI, and player interactions
+Coordinates between different game components
+Handles day/night cycle progression and game events
+Updates the UI and maintains the game loop
+
+CropTile
+
+Represents a single tile on the farm
+Tracks growth stage, water status, and protection status
+Handles crop growth, death, and harvesting
+Contains logic for applying fertilizer and bug killer
+
+FarmTilePanel
+
+Visual representation of a CropTile in the UI
+Renders the appropriate visual based on crop stage
+Handles mouse interactions (selecting/deselecting)
+Shows visual indicators for watering, protection, and selection
+
+GameActionsController
+
+Manages player actions on farm tiles
+Processes actions like planting, watering, harvesting
+Handles execution of actions on selected tiles
+Provides feedback on action results
+
+Shop and Inventory Classes
+Inventory
+
+Tracks player's owned items
+Provides methods to add, use, and check items
+Maintains count of seeds, fertilizers, and other supplies
+
+ItemType (Enum)
+
+Defines available items in the game
+Contains properties like price and display name
+Used by inventory and shop systems
+
+ShopDialog
+
+UI dialog for purchasing items
+Displays available items with prices
+Handles transactions and updates inventory
+
+Event System
+EventSystem
+
+Manages random night events
+Controls event probabilities
+Processes event effects on farm tiles
+Generates event messages for player feedback
+
+CropStage (Enum)
+
+Defines the growth stages of crops
+Used by CropTile to track crop progress
+
+Game Flow and UI Classes
+StartMenu
+
+Initial game screen
+Provides play, settings, and exit options
+Handles game difficulty settings
+
+GameOverDialog
+
+Display win/loss screen
+Shows final stats and achievements
+Offers replay or exit options
+
+GameStateChecker
+
+Monitors win and loss conditions
+Checks for bankruptcy or successful farming
+
+Audio Management
+SoundManager
+
+Loads and plays sound effects and music
+Manages sound enabled/disabled settings
+Handles background music looping
