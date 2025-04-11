@@ -1,39 +1,57 @@
 import java.awt.*;
+import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
 import javax.swing.*;
 
 // Start menu class
 class StartMenu extends JFrame {
+    private Image backgroundImage;
+    
     public StartMenu() {
         setTitle("Daniel's Corn Harvesting Simulator");
         setSize(600, 400);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         
+        // Try to load background image
+        try {
+            backgroundImage = ImageIO.read(new File("background.jpg")); // Default image path
+        } catch (IOException e) {
+            System.out.println("Background image not found, using default gradient background");
+            backgroundImage = null;
+        }
+        
         // Create content panel with background
         JPanel contentPanel = new JPanel() {
             @Override
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
-                // Create a gradient background
-                Graphics2D g2d = (Graphics2D) g;
-                GradientPaint gradient = new GradientPaint(
-                    0, 0, new Color(230, 250, 230),
-                    0, getHeight(), new Color(180, 220, 180));
-                g2d.setPaint(gradient);
-                g2d.fillRect(0, 0, getWidth(), getHeight());
-                
-                // Draw corn stalks
-                g.setColor(new Color(0, 120, 0));
-                for (int i = 0; i < 10; i++) {
-                    int x = 50 + i * 60;
-                    g.fillRect(x, 150, 8, 200);
-                    g.fillOval(x - 10, 120, 15, 40);
-                    g.fillOval(x + 3, 100, 15, 40);
+                if (backgroundImage != null) {
+                    // Draw the background image scaled to fit the panel
+                    g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
+                } else {
+                    // Fallback to gradient background if no image is loaded
+                    Graphics2D g2d = (Graphics2D) g;
+                    GradientPaint gradient = new GradientPaint(
+                        0, 0, new Color(230, 250, 230),
+                        0, getHeight(), new Color(180, 220, 180));
+                    g2d.setPaint(gradient);
+                    g2d.fillRect(0, 0, getWidth(), getHeight());
                     
-                    // Draw corn
-                    g.setColor(new Color(240, 240, 100));
-                    g.fillOval(x - 2, 170, 12, 30);
+                    // Draw corn stalks
                     g.setColor(new Color(0, 120, 0));
+                    for (int i = 0; i < 10; i++) {
+                        int x = 50 + i * 60;
+                        g.fillRect(x, 150, 8, 200);
+                        g.fillOval(x - 10, 120, 15, 40);
+                        g.fillOval(x + 3, 100, 15, 40);
+                        
+                        // Draw corn
+                        g.setColor(new Color(240, 240, 100));
+                        g.fillOval(x - 2, 170, 12, 30);
+                        g.setColor(new Color(0, 120, 0));
+                    }
                 }
             }
         };
